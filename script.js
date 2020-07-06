@@ -9,9 +9,9 @@ firebase.initializeApp({
   messagingSenderId: ""
 });
 
-firebase.firestore().settings({
-  timestampsInSnapshots: true
-});
+// firebase.firestore().settings({
+//   timestampsInSnapshots: false
+// });
 
 /* Define firebase refs */
 const messagesRef = firebase.firestore().collection("messages");
@@ -93,11 +93,10 @@ messagesRef.orderBy("time").onSnapshot((snapshot) => {
       var timestampEl = createParagraph(time.toDate());
       timestampEl.className = "timestamp";
       messageEl.appendChild(timestampEl);
-      
+
       messagesDOM.appendChild(messageEl);
     }
   });
-
   scrollToBottom(messagesDOM);
 });
 
@@ -114,4 +113,33 @@ messageInputDOM.addEventListener("keydown", (event) => {
   }
 });
 
-/* Setup Bitmoji Kit Web here */
+window.snapKitInit = setupBitmoji = () => {
+  // Argument 1
+  var bitmojiWebPickerIconClass = "my-bitmoji-stickerpicker-icon-target";
+
+  // Argument 2
+  var uiOptions = {
+    onStickerPickCallback: function onStickerPickCallback(bitmojiImgURL) {
+      sendImage(bitmojiImgURL)
+    },
+    webpickerPosition: "topLeft",
+  };
+
+  // Argument 3
+  var loginParamsObj = {
+    clientId: "4773fefc-a485-45aa-8c17-381ef991e94a",
+    redirectURI: "http://localhost:8080",
+    scopeList: [
+      // the list of scopes you are approved for
+      "user.bitmoji.avatar",
+      "user.display_name",
+    ],
+  };
+
+  // Mount Bitmoji Icon(s)
+  snap.bitmojikit.mountBitmojiStickerPickerIcons(
+    bitmojiWebPickerIconClass,
+    uiOptions,
+    loginParamsObj
+  );
+}
