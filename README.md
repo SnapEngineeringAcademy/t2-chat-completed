@@ -1,6 +1,6 @@
 # Introduction
 
-This is a hackathon boilerplate for a messaging app using the Snap Kit Bitmoji SDK created by Major League Hacking. It is for hackers looking to get started quickly on a new hackathon project using Snap Kit.
+This is a messaging app using the Snap Kit Bitmoji SDK created by Major League Hacking and adapted for Snap Engineering Academy.
 
 # Prerequisites
 
@@ -8,7 +8,7 @@ This project requires the following tools:
 
 * [Firebase](https://firebase.google.com/) - A mobile and web application development platform. Firebase’s Cloud Firestore will store and sync messages between users of your app.
 * [Node.js](https://nodejs.org/en/download/) - An open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser.
-* [Snap Kit SDK](https://kit.snapchat.com/) - Lets hackers like you integrate some of Snapchat's best features across your hacks.
+* [Snap Kit SDK](https://kit.snapchat.com/) - Lets hackers like you integrate some of Snapchat's best features across your projects.
 
 To get started, create a [Firebase](https://console.firebase.google.com/) and [Snap kit](https://kit.snapchat.com/) account if you haven't already, you can use your Snapchat credentials if you have one to log into Snap Kit. 
 
@@ -19,8 +19,8 @@ To get started, create a [Firebase](https://console.firebase.google.com/) and [S
 You can download the boiler plate code by selecting ***Download or Clone*** at the top of this page or clone the folder into a fresh folder by entering the following command
 
 ```
-$ git clone https://github.com/mlh/mlh-hackathon-snap-kit-starter.git
-$ cd mlh-hackathon-snap-kit-starter
+$ git clone https://github.com/SnapEngineeringAcademy/t2-chat-completed.git
+$ cd t2-chat-completed
 ```
 
 ### Step 2: Configure Firebase in Your App**
@@ -73,7 +73,7 @@ Before working with the Snap Kit Development Kit, you'll need to get your Snap K
 
 1. Add a new Snap application by hitting ht `+` symbol
 2. Enable the Bitmoji Kit under `Kits` 
-3. Add a redirect URL which is your localhost URL `http://localhost:8081/`
+3. Add a redirect URL which is your localhost URL `http://localhost:8080/`
 4. Configure your development environment by toggling the `web` client on.
 
 ### Step 5: Adding Bitmoji Kit to your app**
@@ -87,40 +87,43 @@ Open `index.html`, and add a `<div>` placeholder where our sticker picker would 
 <div class="controls">
   <input id="messageInput" type="text" placeholder="Type a message..."/>
   <i id="namePicker" class="material-icons">account_box</i>
-  <div class="bitmojiStickerPicker"></div>
+  <div class="my-bitmoji-stickerpicker-icon-target"></div>
 </div>
 ```
 With our Sticker Picker in place, let's include the Snap Kit SDK using the following snippet
 
 ```javascript
-<script>
-  // Load the SDK asynchronously
-  (function (d, s, id) {
-    var js, sjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://sdk.snapkit.com/js/v1/login_bitmoji.js";
-    sjs.parentNode.insertBefore(js, sjs);
-  }(document, 'script', 'bitmojikit-sdk'));
-</script>
+  <script>
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+      var js,
+        sjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://sdk.snapkit.com/js/v1/login_bitmoji.js";
+      sjs.parentNode.insertBefore(js, sjs);
+    })(document, "script", "bitmojikit-sdk");
+  </script>
 ```
 
 Copy and paste the snippet to the end of the `<body>` tag of `index.html` as shown.
 
 ```javascript
-<!-- JS -->
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
-<script src="script.js"></script>
-<script>
-  /* Load the Bitmoji Kit SDK asynchronously */
-  (function (d, s, id) {
-    var js, sjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://sdk.snapkit.com/js/v1/login_bitmoji.js";
-    sjs.parentNode.insertBefore(js, sjs);
-  }(document, 'script', 'bitmojikit-sdk'));
-</script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // Load the SDK asynchronously
+      (function (d, s, id) {
+        var js,
+          sjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://sdk.snapkit.com/js/v1/login_bitmoji.js";
+        sjs.parentNode.insertBefore(js, sjs);
+      })(document, "script", "bitmojikit-sdk");
+    </script>
 ```
 
 Open the `script.js` file to add the `snapKitInit` function beneath the comment that reads `/* Setup Bitmoji Kit Web here */`
