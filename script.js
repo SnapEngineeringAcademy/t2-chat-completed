@@ -93,9 +93,15 @@ messagesRef.orderBy("time").onSnapshot((snapshot) => {
 
       messageEl.appendChild(messageContentEl);
 
+<<<<<<< HEAD
       // var timestampEl = createParagraph(time);
       // timestampEl.className = "timestamp";
       // messageEl.appendChild(timestampEl);
+=======
+      var timestampEl = createParagraph(time.toDate());
+      timestampEl.className = "timestamp";
+      messageEl.appendChild(timestampEl);
+>>>>>>> 87a2bc33e455be2b9b14db6b2ec17a7e48449cc1
 
       messagesDOM.appendChild(messageEl);
     }
